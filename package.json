@@ -4,6 +4,8 @@
   "description": "The Server used to distribute the patches",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon ./server.js",
+    "dev": "nodemon ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/sayanmondal2098/PatchServer/issues"
   },
-  "homepage": "https://github.com/sayanmondal2098/PatchServer#readme"
+  "homepage": "https://github.com/sayanmondal2098/PatchServer#readme",
+  "dependencies": {
+    "net": "^1.0.2"
+  }
 }

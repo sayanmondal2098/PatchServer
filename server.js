@@ -1,7 +1,10 @@
 const net = require('net');
-const port = 1234;
-const host = 'localhost';
+require('dotenv').config();
+const port = process.env.PORT;
+const host = process.env.HOST;
 const server = net.createServer();
+
+console.log(process.env);
 server.listen(port, host, () => {
     console.log(`TCP server listening on ${host}:${port}`);
 });
@@ -12,10 +15,17 @@ let sockets = [];
 server.on('connection', (socket) => {
     var clientAddress = `${socket.remoteAddress}:${socket.remotePort}`;
     console.log(`new client connected: ${clientAddress}`);
+    server.getConnections(function(error, count) {
+
+        console.log(count);
+        console.log(sockets.length);
+    
+    });
     sockets.push(socket);
     socket.on('data', (data) => {
         console.log(`Client ${clientAddress}: ${data}`);
-
+        console.log(server.getConnections());
+        
 
         // Write the data back to all the connected, the client will receive it as data from the server 
         sockets.forEach((sock) => {
@@ -39,3 +49,4 @@ server.on('connection', (socket) => {
         console.log(`Error occurred in ${clientAddress}: ${err.message}`);
     });
 });
+

@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
+const FileList = require('./api/Send File/filecontroller');
 
+
+app.use('/listdir', FileList);
 app.use('/',(req, res, next) => {
   res.status(200).json({
     "message": "It works!",

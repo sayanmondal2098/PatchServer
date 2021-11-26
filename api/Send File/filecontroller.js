@@ -21,8 +21,21 @@ const getFileList = (req, res) => {
     });
 };
 
+const getFileDownload = (req, res) => {
+    var fileName = req.params.name;
+    var filePath = './dummydir/' + fileName;
 
+    res.download(filePath  , fileName, (err) => { 
+        if (err) {
+            console.log(err);
+            res.status(500).send({
+                message: 'Unable to send Files '+err,
+            })
+        }
+    })
+};
 
 module.exports = {  
-    getFileList
+    getFileList,
+    getFileDownload
 };

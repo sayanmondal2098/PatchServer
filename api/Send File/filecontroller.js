@@ -1,6 +1,4 @@
 const fs = require('fs');
-const express = require('express');
-const router = express();
 
 const getFileList = (req, res) => {
     const directoryPath = './dummydir/';
@@ -23,9 +21,8 @@ const getFileList = (req, res) => {
     });
 };
 
-router.get('/list',getFileList ,(req, res) => {
-    // getFileList(req, res);     // this is the same as above after removing the getFileList from function variable
-    console.log('File List Sent');
-}); 
 
-module.exports = router;
+
+module.exports = {  
+    getFileList
+};

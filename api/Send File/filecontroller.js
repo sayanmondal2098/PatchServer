@@ -1,7 +1,7 @@
 const fs = require('fs');
+const directoryPath = process.env.MOCK_DIRECTORY_PATH;
 
 const getFileList = (req, res) => {
-    const directoryPath = './dummydir/';
     fs.readdir(directoryPath, (err, files) => {
         if (err) {
         res.status(500).send({
@@ -23,13 +23,13 @@ const getFileList = (req, res) => {
 
 const getFileDownload = (req, res) => {
     var fileName = req.params.name;
-    var filePath = './dummydir/' + fileName;
+    var filePath = directoryPath + fileName;
 
     res.download(filePath  , fileName, (err) => { 
         if (err) {
             console.log(err);
             res.status(500).send({
-                message: 'Unable to send Files '+err,
+                message: 'Unable to send Files '+ err,
             })
         }
     })

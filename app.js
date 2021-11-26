@@ -16,8 +16,8 @@ app.use('/',(req, res, next) => {
     "App Path": req.path,
     "App Query": req.query,
     "App Body": req.body
-
   });
 });
+
 app.listen(process.env.OUTPUT_PORT || 5882);
 module.exports = app;

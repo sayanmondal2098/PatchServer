@@ -25,7 +25,7 @@ const getFileDownload = (req, res) => {
     var fileName = req.params.name;
     var filePath = directoryPath + fileName;
 
-    res.download(filePath  , fileName, (err) => { 
+    res.download(filePath, fileName, (err) => { 
         if (err) {
             console.log(err);
             res.status(500).send({

@@ -13,7 +13,7 @@ let sockets = [];
 
 server.on('connection', (socket) => {
     var clientAddress = `${socket.remoteAddress}:${socket.remotePort}`;
-    console.log(`new client connected: ${clientAddress}`);
+    console.log(`new client number ${sockets.length +1} connected: ${clientAddress}`);
     server.getConnections(function(error, count) {
 
         console.log(count);

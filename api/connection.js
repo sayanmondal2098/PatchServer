@@ -36,16 +36,16 @@ server.on('connection', (socket) => {
     });
     // Add a 'close' event handler to this instance of socket 
 
-    socket.on('close', (data) => {
-        letindex = sockets.findIndex((o) => {
-            return o.remoteAddress === socket.remoteAddress && o.remotePort === socket.remotePort;
-        });
-        if (index !== -1) sockets.splice(index, 1);
-        sockets.forEach((sock) => {
-            sock.write(`${clientAddress} disconnected\n`);
-        });
-        console.log(`connection closed: ${clientAddress}`);
-    });
+    // socket.on('close', (data) => {
+    //     letindex = sockets.findIndex((o) => {
+    //         return o.remoteAddress === socket.remoteAddress && o.remotePort === socket.remotePort;
+    //     });
+    //     if (index !== -1) sockets.splice(index, 1);
+    //     sockets.forEach((sock) => {
+    //         sock.write(`${clientAddress} disconnected\n`);
+    //     });
+    //     console.log(`connection closed: ${clientAddress}`);
+    // });
     // Add a 'error' event handler to this instance of socket 
     socket.on('error', (err) => {
         console.log(`Error occurred in ${clientAddress}: ${err.message}`);

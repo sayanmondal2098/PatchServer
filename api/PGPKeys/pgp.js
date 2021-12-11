@@ -10,25 +10,29 @@ router.get('/generateKeyPair', (req, res) => {
 });
 
 router.get('/getPrivateKey', async (req, res) => {
-    res.status(200).send(pgp.getPrivateKey());   
-    console.log(pgp.getPrivateKey());
+    const data = await pgp.getPrivateKey();
+    res.status(200).send(data);   
+    console.log(data);
 }); 
 
 router.get('/getPublicKey', async (req, res) => {
-    await res.status(200).send( pgp.getPublicKey());
-    console.log(await pgp.getPublicKey());
+    const data = await pgp.getPublicKey();
+    res.status(200).send( data);
+    console.log(data);
 }); 
 
 router.post('/getEncryptedText', async (req, res,next) => {
     const text = req.body.text.toString();
+    const data = await pgp.getEncryptedString(text)
     console.log(req.body.email);
-    res.status(200).send(pgp.getEncryptedString(text));
+    res.status(200).send(data);
 }); 
 
 router.post('/getDecryptedString', async (req, res,next) => {
     const encryptedText = req.body.text.toString();
+    const data = await pgp.getEncryptedString(text)
     console.log(req.body.text);
-    res.status(200).send(pgp.getDecryptedString(encryptedText));
+    res.status(200).send(data);
 }); 
 
 module.exports = router;

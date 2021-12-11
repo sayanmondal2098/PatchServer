@@ -10,7 +10,7 @@ const getFileList = (req, res) => {
         }
         let fileList = [];
 
-        files.forEach(file => {
+        files.forEach(file => { 
             fileList.push({
                 name: file,
                 url: directoryPath + file,

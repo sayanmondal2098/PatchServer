@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express();
 
-const getFileList = require('./filecontroller');
+const getFileList = require('../../util/filecontrollerUtil');
 
 router.get('/list', (req, res) => {
     getFileList.getFileList(req, res);     // this is the same as above after removing the getFileList from function variable

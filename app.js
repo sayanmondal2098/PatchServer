@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
 const FileList = require('./api/Send File/filesendRouter');
+const PgpSec = require('./api/PGPKeys/pgp');
 
 
 app.use('/listdir', FileList);
+app.use('/sec', PgpSec);
 
 app.use('/',(req, res, next) => {
   res.status(200).json({
@@ -21,4 +23,5 @@ app.use('/',(req, res, next) => {
 
 
 app.listen(process.env.OUTPUT_PORT || 5882);
+console.log('Server API is running on port 5882 ...');
 module.exports = app;

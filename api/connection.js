@@ -26,7 +26,7 @@ server.on('connection', (socket) => {
     sockets.push(socket);
     socket.on('data', (data) => {
         console.log(`Client ${clientAddress}: ${data}`);
-        console.log(server.getConnections());
+      //  console.log(server.getConnections());
         
 
         // Write the data back to all the connected, the client will receive it as data from the server 

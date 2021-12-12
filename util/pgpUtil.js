@@ -5,7 +5,8 @@ const KEY_FILE_PATH = process.env.KEY_FILE_PATH;
 
 const key = new NodeRSA({b: 2048});
 
-
+var publicKeyString  = '';
+var privateKeyString = '';
 const generateKeyPair = () => {
     key.generateKeyPair();
     var publicKey = key.exportKey('public'); // returns the public key in PEM format;
@@ -14,38 +15,38 @@ const generateKeyPair = () => {
     console.log(publicKey);
     console.log(privateKey);
     try {
-        fs.writeFileSync(`${KEY_FILE_PATH}public.key`, publicKey);
-        fs.writeFileSync(`${KEY_FILE_PATH}private.key`, privateKey);
+        fs.writeFile(`${KEY_FILE_PATH}public.key`, publicKey);
+        fs.writeFile(`${KEY_FILE_PATH}private.key`, privateKey);
     } catch (error) {
         console.log(error);
     }
 }
 
 // get public key 
-const getPublicKey = () => {
-    fs.readFileSync(`${KEY_FILE_PATH}public.key`, 'utf8', (err, data) => {
+const  getPublicKey = () => {
+    fs.readFile(`${KEY_FILE_PATH}public.key`, 'utf8', (err, data) => {
         if (err){
             console.error(err);
             return;
         }
         console.log(data);
-        return data;
+        publicKeyString += data;
+        return publicKeyString;
+        
     });
 }
 
 //get private key
 const getPrivateKey = () => {
-    var string = '';
-    fs.readFileSync(`${KEY_FILE_PATH}private.key`, 'utf8', (err, data) => {
+
+    fs.readFile(`${KEY_FILE_PATH}private.key`, 'utf8', (err, data) => {
         if (err){
             console.error(err);
             return;
         }
         console.log(data);
-        string += data;
-        console.log(data);
-        key.importKey(keyData, 'pkcs8');
-        
+        privateKeyString += data;
+        return privateKeyString;        
     });
 }
 

@@ -1,9 +1,11 @@
 const NodeRSA = require('node-rsa');
 const fs = require('fs');
+const { get } = require('express/lib/response');
+const { format } = require('path');
 const KEY_FILE_PATH = process.env.KEY_FILE_PATH;
 
-
 const key = new NodeRSA({b: 2048});
+
 
 var publicKeyString  = '';
 var privateKeyString = '';
@@ -24,14 +26,14 @@ const generateKeyPair = () => {
 
 // get public key 
 const  getPublicKey = () => {
-    fs.readFile(`${KEY_FILE_PATH}public.key`, 'utf8', (err, data) => {
+    fs.readFile(`${KEY_FILE_PATH}public.key`,(err, data) => {
         if (err){
             console.error(err);
             return;
         }
-        console.log(data);
+        console.log(data.toString());
         publicKeyString += data;
-        return publicKeyString;
+        return data.toString();
         
     });
 }
@@ -39,14 +41,14 @@ const  getPublicKey = () => {
 //get private key
 const getPrivateKey = () => {
 
-    fs.readFile(`${KEY_FILE_PATH}private.key`, 'utf8', (err, data) => {
+    fs.readFile(`${KEY_FILE_PATH}private.key`,  (err, data) => {
         if (err){
             console.error(err);
             return;
         }
-        console.log(data);
-        privateKeyString += data;
-        return privateKeyString;        
+        console.log(data.toString());
+        privateKeyString += data.toString();
+        return data;        
     });
 }
 
@@ -55,15 +57,17 @@ const getPrivateKey = () => {
 //public key encrypt
 
 const getEncryptedString = (req) => {
-    let key_public = new NodeRSA(getPublicKey());
+    key.setOptions({encryptionScheme: 'pkcs1'});
+    var TextPubKey = getPublicKey();
+    let key_public = new NodeRSA(TextPubKey, 'pkcs8-public');
     let encryptedString = key_public.encrypt(req, 'base64');
     console.log(encryptedString);
     return encryptedString;
 } 
 
 const getDecryptedString = (req) => {
-
-    let key_private = new NodeRSA(getPrivateKey());
+    var TextPvtKey = getPrivateKey();
+    let key_private = new NodeRSA(TextPvtKey);
     let decryptedString = key_private.decrypt(req, 'utf8');
     console.log(decryptedString);
     return decryptedString;
